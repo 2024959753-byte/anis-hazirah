@@ -1,0 +1,656 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ae's Website Portfolio</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
+body{background:#fff0f7;color:#333;overflow-x:hidden}
+
+/* --- Navigation Bar --- */
+nav{position:fixed;top:0;width:100%;background:#d63384;padding:18px 8%;display:flex;justify-content:space-between;align-items:center;z-index:1000;box-shadow: 0 2px 10px rgba(0,0,0,0.1)}
+.logo{color:#fff;font-size:24px;font-weight:bold;letter-spacing:1px}
+nav ul{display:flex;list-style:none;flex-wrap:wrap;align-items:center}
+nav li{margin-left:22px}
+nav a{color:white;text-decoration:none;font-size:15px;font-weight:500;transition:color 0.3s}
+nav a:hover{color:#ffd6ea}
+
+/* --- Audio Control Styling --- */
+.audio-control-item {margin-left: 22px; display: flex; align-items: center;}
+.audio-btn {background: #ff69b4; border: 2px solid #fff; color: white; padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);}
+.audio-btn:hover {background: white; color: #d63384; transform: translateY(-1px);}
+
+/* --- Section Container Layouts --- */
+section{padding:100px 10% 60px 10%; position: relative;}
+
+/* Card style wrapper to separate each major topic into its own distinct section block */
+.section-card {
+  background: #ffffff;
+  padding: 50px 40px;
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(214,51,132,0.05);
+  border: 1px solid rgba(214,51,132,0.1);
+  margin-bottom: 40px;
+}
+
+/* Specific background adjustment to retain flow for the skills layout */
+.skills-showcase {
+  background: linear-gradient(to bottom, #ffffff 0%, #ffe3f0 100%);
+}
+
+/* --- Animations & Interaction Effects --- */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes clickPop {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.94); }
+  100% { transform: scale(1); }
+}
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.9s ease-out;
+}
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- Hero/Home Section --- */
+.hero {
+  min-height: 100vh;
+  background: #fff0f7; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 105px 1.5% 20px 1.5%; 
+}
+
+/* Photo Box container - optimized to span almost full viewport width */
+.hero-image-frame {
+  width: 100%;
+  max-width: 100%; 
+  min-height: 85vh;
+  border-radius: 24px;
+  background: linear-gradient(rgba(214,51,132,0.55), rgba(214,51,132,0.45)), url('anis image 2.jpg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+  padding: 60px 40px;
+  box-shadow: 0 15px 35px rgba(214,51,132,0.12);
+  animation: fadeInUp 1s ease forwards;
+}
+
+.hero-content {
+  max-width: 850px;
+  width: 100%;
+}
+.hero h1{font-size:54px; font-weight: 800; animation:fadeInUp 1s ease forwards; text-shadow: 0 3px 12px rgba(0,0,0,0.35);}
+.hero h3{margin:18px 0;color:#ffe6f2;font-size:24px;min-height: 35px; text-shadow: 0 2px 8px rgba(0,0,0,0.3);}
+.hero p {animation:fadeInUp 1s ease 0.3s forwards;opacity:0;margin-bottom: 30px; text-shadow: 0 2px 8px rgba(0,0,0,0.3); font-size: 17px;}
+
+#typing::after { content: '|'; animation: blink 0.7s infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+.btn{display:inline-block;background:#ff69b4;color:#fff;padding:14px 34px;border-radius:30px;text-decoration:none;font-weight:600;box-shadow: 0 4px 15px rgba(0,0,0,0.2);animation:fadeInUp 1s ease 0.6s forwards;opacity:0;transition:all 0.3s;cursor:pointer;border:none;}
+.btn:hover{background:#fff;color:#d63384;transform:translateY(-3px);box-shadow: 0 6px 20px rgba(0,0,0,0.25)}
+.btn:active{animation: clickPop 0.2s ease-in-out;}
+
+.title{text-align:center;color:#000;font-size:42px;font-weight:700;margin-bottom:60px;position: relative;}
+.title::after {content: ''; display: block; width: 60px; height: 4px; background: #ff69b4; margin: 15px auto 0 auto; border-radius: 2px;}
+
+/* --- About Me Section --- */
+.about-box{display:grid;grid-template-columns: 1.2fr 1.8fr;gap:60px;align-items:start;position: relative;z-index: 2;}
+.profile-wrapper {display: flex; justify-content: center; align-items: center;}
+.profile{width:360px;height:360px;border-radius:50%;background:#ffd6ea;overflow:hidden;border: 8px solid #fff;box-shadow: 0 12px 35px rgba(214,51,132,0.25);transition:transform 0.5s}
+.profile img{width:100%;height:100%;object-fit:cover;object-position: center 15%;}
+.profile:hover{transform:scale(1.03)}
+
+.bio-content h2 {font-size: 36px; color: #111; margin-bottom: 5px;}
+.bio-content h4 {font-size: 18px; color: #444; font-weight: 600; margin-bottom: 20px;}
+.bio-content .desc {font-size: 16px; line-height: 1.7; color: #444; margin-bottom: 30px;}
+
+.info-grid {display: grid; grid-template-columns: auto 1fr; gap: 12px 20px; font-size: 16px;}
+.info-grid .label {font-weight: 700; color: #111; min-width: 90px;}
+.info-grid .val {color: #444;}
+
+/* --- Technical Skills Section --- */
+.skills-container {display: grid; grid-template-columns: 1fr 1fr; gap: 30px; position: relative; z-index: 5;}
+
+.skill-card {
+  background: #fff; 
+  padding: 25px 30px; 
+  border-radius: 16px; 
+  box-shadow: 0 8px 25px rgba(214,51,132,0.08); 
+  transition: all 0.3s ease; 
+  border: 1px solid #ffeef5;
+  cursor: pointer;
+  user-select: none;
+}
+.skill-card:hover {
+  transform: translateY(-3px); 
+  box-shadow: 0 12px 30px rgba(214,51,132,0.15);
+  border-color: #ff69b4;
+}
+.skill-header {
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center;
+  font-weight: 700; 
+  font-size: 16px; 
+  margin-bottom: 12px; 
+  color: #222;
+}
+.skill-title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.skill-arrow {
+  font-size: 11px;
+  color: #d63384;
+  transition: transform 0.3s ease;
+}
+.skill-card.active-card .skill-arrow {
+  transform: rotate(180deg);
+}
+
+.bar{height:12px;background:#ffd6ea;border-radius:20px;overflow:hidden;margin-bottom: 0;transition: margin 0.3s ease;}
+.fill{height:100%;background:#d63384;border-radius:20px;width:0%;transition:width 1.8s cubic-bezier(0.1, 1, 0.1, 1)}
+
+.skill-desc-container {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.skill-desc-text {
+  padding-top: 15px;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: #555;
+  border-top: 1px dashed rgba(214,51,132,0.15);
+  margin-top: 15px;
+}
+.skill-card.active-card .skill-desc-container {
+  max-height: 200px; 
+}
+
+/* --- Education Timeline (Decorated) --- */
+.timeline {
+  border-left: 3px dashed #ff69b4; 
+  padding-left: 35px; 
+  max-width: 800px; 
+  margin: 20px auto 0 auto;
+}
+.timeline-item {
+  margin-bottom: 35px; 
+  position: relative;
+  background: #fff6fa;
+  padding: 20px 25px;
+  border-radius: 16px;
+  border: 1px solid rgba(214,51,132,0.06);
+  box-shadow: 0 4px 15px rgba(214,51,132,0.02);
+  transition: all 0.3s ease;
+}
+.timeline-item::before {
+  content: ''; 
+  position: absolute; 
+  left: -46px; 
+  top: 24px; 
+  width: 12px; 
+  height: 12px; 
+  background: #ff69b4; 
+  border: 3px solid #fff; 
+  border-radius: 50%; 
+  box-shadow: 0 0 0 3px #ff69b4;
+  transition: all 0.3s ease;
+}
+.timeline-item:hover {
+  transform: translateX(5px);
+  background: #ffffff;
+  border-color: #ff69b4;
+  box-shadow: 0 6px 20px rgba(214,51,132,0.1);
+}
+.timeline-item:hover::before {
+  background: #fff;
+  border-color: #d63384;
+  transform: scale(1.2);
+}
+.timeline-badge {
+  display: inline-block;
+  background: #d63384;
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+}
+.timeline-item h3 {
+  font-size: 21px; 
+  color: #111; 
+  margin-bottom: 4px;
+}
+.timeline-location {
+  color: #ff69b4;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.timeline-details {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: #555;
+}
+.timeline-item:last-child {margin-bottom: 0;}
+
+/* --- Grid Cards (Personality & Languages) --- */
+.card-container{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.card{background:#fff0f7;padding:22px;text-align:center;font-weight:600;color:#333;border-radius:12px;box-shadow:0 5px 15px rgba(214,51,132,.05);transition:all 0.3s; border: 1px solid rgba(214,51,132,0.1);}
+.card:hover{transform:translateY(-5px);box-shadow:0 10px 20px rgba(214,51,132,0.18); background: #d63384; color: #fff; border-color: #d63384;}
+
+/* --- Contact & Footer --- */
+.contact{text-align:center; background: #fff0f7; padding: 40px; border-radius: 20px; box-shadow: 0 5px 15px rgba(214,51,132,0.04); border: 1px solid rgba(214,51,132,0.08); max-width: 650px; margin: 0 auto;}
+.contact p{margin:14px 0; font-size: 16px;}
+footer{background:#d63384;color:#fff;text-align:center;padding:35px; margin-top: 60px;}
+
+#topBtn{position:fixed;bottom:25px;right:25px;border:none;background:#ff69b4;color:#fff;padding:16px;border-radius:50%;display:none;cursor:pointer;box-shadow: 0 4px 12px rgba(0,0,0,0.15);z-index: 999;transition:transform 0.2s}
+#topBtn:hover{transform:scale(1.1)}
+
+/* --- Responsive Adjustments --- */
+@media(max-width:1100px){
+  .skills-container { grid-template-columns: 1fr; gap: 20px; }
+  .about-box { grid-template-columns: 1fr; gap: 40px; }
+}
+@media(max-width:950px){
+  nav{flex-direction:column; padding: 15px;}
+  nav ul { margin-top: 10px; justify-content: center; }
+  nav li, .audio-control-item { margin: 5px 10px; }
+  .section-card { padding: 35px 20px; }
+  .hero { padding-top: 145px; }
+  .hero h1 { font-size: 38px; }
+}
+@media(max-width:768px){
+  .profile { width: 280px; height: 280px; }
+  .timeline { padding-left: 20px; }
+  .timeline-item::before { left: -31px; }
+}
+</style>
+</head>
+<body>
+
+<audio id="ts-song" loop>
+  <source src="Ariana Grande  hate that i made you love me (Lyrics).mp3" type="audio/mpeg">
+  <source src="http://googleusercontent.com/file_content/0" type="audio/mpeg">
+</audio>
+
+<nav id="navbar">
+<div class="logo">AE'S PROFILE</div>
+<ul>
+<li><a href="#home">Home</a></li>
+<li><a href="#about">About</a></li>
+<li><a href="#skills">Skills</a></li>
+<li><a href="#education">Education</a></li>
+<li><a href="#personality">Personality</a></li>
+<li><a href="#language">Languages</a></li>
+<li><a href="#contact">Contact</a></li>
+<li class="audio-control-item">
+  <button id="audioToggleBtn" class="audio-btn">🎵 Play Music</button>
+</li>
+</ul>
+</nav>
+
+<!-- SECTION: HOME -->
+<section class="hero" id="home">
+<div class="hero-image-frame">
+  <div class="hero-content">
+    <h1>Anis Hazirah Binti Mohamad Noor</h1>
+    <h3><span id="typing"></span></h3>
+    <p>Aspiring Information Science student passionate about technology and information systems.</p>
+    <button id="exploreBtn" class="btn">Explore Resume</button>
+  </div>
+</div>
+</section>
+
+<!-- SECTION: ABOUT ME -->
+<section id="about" class="reveal">
+<div class="section-card">
+  <h2 class="title">About Me</h2>
+  <div class="about-box">
+    <div class="profile-wrapper">
+      <div class="profile">
+        <img src="anis image 1.jpeg" alt="Anis Hazirah Binti Mohamad Noor">
+      </div>
+    </div>
+    <div class="bio-content">
+      <h2>Anis Hazirah Binti Mohamad Noor</h2>
+      <h4>Diploma in Information Science Student</h4>
+      <p class="desc">My name is Anis Hazirah Binti Mohamad Noor, and I am 21 years old. I am a student who is always eager to expand my knowledge, develop my skills, and gain valuable experience in various fields. I consider myself a responsible, hardworking, and cooperative person who enjoys working with others. I also have a strong passion for learning new things and am always willing to take on new challenges to improve myself.<br><br>My goal is to continue gaining valuable experience, enhance my personal and professional development, and become a knowledgeable, skilled, and responsible individual who can make a positive contribution to society and future organizations.</p>
+      
+      <div class="info-grid">
+        <div class="label">Name</div><div class="val">: Anis Hazirah Binti Mohamad Noor</div>
+        <div class="label">Age</div><div class="val">: 21 Years</div>
+        <div class="label">Email</div><div class="val">: 2024959753@student.uitm.edu.my</div>
+        <div class="label">Phone</div><div class="val">: 017-244 3868</div>
+        <div class="label">Location</div><div class="val">: Seri Kembangan, Selangor</div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SECTION: TECHNICAL SKILLS -->
+<section id="skills" class="reveal">
+<div class="section-card skills-showcase">
+  <h2 class="title">Technical Skills</h2>
+
+  <div class="skills-container">
+    
+    <!-- Programming Card -->
+    <div class="skill-card" onclick="toggleSkillDesc(this)">
+      <div class="skill-header">
+        <span class="skill-title-wrapper">Programming <span class="skill-arrow">▼</span></span>
+        <span class="pct-val">80%</span>
+      </div>
+      <div class="bar"><div class="fill" data-width="80%"></div></div>
+      <div class="skill-desc-container">
+        <p class="skill-desc-text">I have a solid understanding of programming concepts and can develop efficient applications using languages such as C++, HTML, CSS, and JavaScript. I enjoy learning new technologies and continuously improving my coding skills.</p>
+      </div>
+    </div>
+
+    <!-- Database Management Card -->
+    <div class="skill-card" onclick="toggleSkillDesc(this)">
+      <div class="skill-header">
+        <span class="skill-title-wrapper">Database Management <span class="skill-arrow">▼</span></span>
+        <span class="pct-val">85%</span>
+      </div>
+      <div class="bar"><div class="fill" data-width="85%"></div></div>
+      <div class="skill-desc-container">
+        <p class="skill-desc-text">Experienced in designing, organizing, and managing databases using SQL and MySQL. I can create structured databases, perform queries, and ensure data is stored accurately and efficiently.</p>
+      </div>
+    </div>
+
+    <!-- Web Development Card -->
+    <div class="skill-card" onclick="toggleSkillDesc(this)">
+      <div class="skill-header">
+        <span class="skill-title-wrapper">Web Development <span class="skill-arrow">▼</span></span>
+        <span class="pct-val">75%</span>
+      </div>
+      <div class="bar"><div class="fill" data-width="75%"></div></div>
+      <div class="skill-desc-container">
+        <p class="skill-desc-text">Capable of building responsive and user-friendly websites with HTML, CSS, and JavaScript. I focus on creating clean designs, smooth functionality, and an enjoyable user experience across different devices.</p>
+      </div>
+    </div>
+
+    <!-- Networking Card -->
+    <div class="skill-card" onclick="toggleSkillDesc(this)">
+      <div class="skill-header">
+        <span class="skill-title-wrapper">Networking <span class="skill-arrow">▼</span></span>
+        <span class="pct-val">70%</span>
+      </div>
+      <div class="bar"><div class="fill" data-width="70%"></div></div>
+      <div class="skill-desc-container">
+        <p class="skill-desc-text">Possess a good understanding of computer networking fundamentals, including network configuration, troubleshooting, and basic security practices. I am able to identify and resolve common network-related issues.</p>
+      </div>
+    </div>
+
+    <!-- Data Management Card -->
+    <div class="skill-card" onclick="toggleSkillDesc(this)">
+      <div class="skill-header">
+        <span class="skill-title-wrapper">Data Management <span class="skill-arrow">▼</span></span>
+        <span class="pct-val">85%</span>
+      </div>
+      <div class="bar"><div class="fill" data-width="85%"></div></div>
+      <div class="skill-desc-container">
+        <p class="skill-desc-text">Skilled in collecting, organizing, and maintaining data to ensure accuracy and consistency. I am comfortable handling data efficiently and using it to support decision-making and improve workflows.</p>
+      </div>
+    </div>
+
+    <!-- Problem Solving Card -->
+    <div class="skill-card" onclick="toggleSkillDesc(this)">
+      <div class="skill-header">
+        <span class="skill-title-wrapper">Problem Solving <span class="skill-arrow">▼</span></span>
+        <span class="pct-val">90%</span>
+      </div>
+      <div class="bar"><div class="fill" data-width="90%"></div></div>
+      <div class="skill-desc-container">
+        <p class="skill-desc-text">Strong analytical and critical thinking skills with the ability to identify problems, evaluate possible solutions, and implement effective results. I enjoy tackling challenges and finding practical solutions both independently and in a team.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- SECTION: EDUCATION -->
+<section id="education" class="reveal">
+<div class="section-card">
+  <h2 class="title">Education</h2>
+  <div class="timeline">
+    
+    <!-- Item 1 -->
+    <div class="timeline-item">
+      <div class="timeline-badge">2011 - 2017</div>
+      <h3>SK Taman Desaminium</h3>
+      <div class="timeline-location">Selangor</div>
+      <p class="timeline-details">Completed primary education layout while building core academic foundations, discovering early interests in computer activities, and actively participating in co-curricular school clubs.</p>
+    </div>
+    
+    <!-- Item 2 -->
+    <div class="timeline-item">
+      <div class="timeline-badge">2018 - 2022</div>
+      <h3>SMK Taman Desaminium</h3>
+      <div class="timeline-location">Selangor</div>
+      <p class="timeline-details">Completed secondary school education with fine results. Developed critical communication, strong group teamwork dynamics, and essential technical values during formative adolescent academic years.</p>
+    </div>
+    
+    <!-- Item 3 -->
+    <div class="timeline-item">
+      <div class="timeline-badge">2024 - Present</div>
+      <h3>Diploma in Information Science</h3>
+      <div class="timeline-location">Universiti Teknologi Mara Rembau, Negeri Sembilan</div>
+      <p class="timeline-details">Currently acquiring advanced skills in modern databases, data analytics, web architecture, and digital resource classification. Actively preparing for professional careers inside computing and information system environments.</p>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- SECTION: PERSONALITY -->
+<section id="personality" class="reveal">
+<div class="section-card">
+  <h2 class="title">Personality</h2>
+  <div class="card-container">
+    <div class="card">Adaptability</div><div class="card">Reliability</div>
+    <div class="card">Integrity</div><div class="card">Positivity</div>
+    <div class="card">Resilience</div><div class="card">Professionalism</div>
+    <div class="card">Confidence</div><div class="card">Creativity</div>
+  </div>
+</div>
+</section>
+
+<!-- SECTION: LANGUAGES -->
+<section id="language" class="reveal">
+<div class="section-card">
+  <h2 class="title">Languages</h2>
+  <div class="card-container">
+    <div class="card">Malay</div>
+    <div class="card">English</div>
+  </div>
+</div>
+</section>
+
+<!-- SECTION: CONTACT ME -->
+<section id="contact" class="reveal">
+<div class="section-card">
+  <h2 class="title">Contact Me</h2>
+  <div class="contact">
+    <p><b>Email:</b> 2024959753@student.uitm.edu.my</p>
+    <p><b>Instagram:</b> @anishazyyrah</p>
+    <p><b>TikTok:</b> @yvyvn1</p>
+    <p><b>Phone Number:</b> 017-244 3868</p>
+    <p><b>Address:</b> 10-02-02 Blok 10 Pangsapuri Sri Indah, Taman Lestari Perdana, Seri Kembangan, Selangor</p>
+  </div>
+</div>
+</section>
+
+<footer>
+<h2>Thank You For Visiting</h2>
+<p>Anis Resume &copy; 2026</p>
+</footer>
+
+<button id="topBtn" onclick="scrollToSection(document.getElementById('home'))">↑</button>
+
+<script>
+// Dynamic Typing Effect
+const txt = "Diploma in Information Science Student";
+let i = 0;
+function type() {
+  if (i < txt.length) {
+    document.getElementById('typing').innerHTML += txt.charAt(i);
+    i++;
+    setTimeout(type, 80);
+  }
+}
+window.onload = type;
+
+// Scroll Visibility Reveals 
+function revealElements() {
+  const reveals = document.querySelectorAll('.reveal');
+  
+  reveals.forEach(element => {
+    const windowHeight = window.innerHeight;
+    const elementTop = element.getBoundingClientRect().top;
+    const elementVisible = 100;
+    
+    if (elementTop < windowHeight - elementVisible) {
+      element.classList.add('active');
+      
+      const skillBars = element.querySelectorAll('.fill');
+      skillBars.forEach(bar => {
+        bar.style.width = bar.parentElement.previousElementSibling.querySelector('.pct-val').innerText;
+      });
+    }
+  });
+}
+
+window.addEventListener('scroll', () => {
+  revealElements();
+  document.getElementById('topBtn').style.display = (document.documentElement.scrollTop > 300) ? 'block' : 'none';
+});
+
+// Interactive Skill Details Dropdown Toggle
+function toggleSkillDesc(card) {
+  card.classList.toggle('active-card');
+  if(typeof pauseAutoScrollForUser === 'function') {
+    pauseAutoScrollForUser();
+  }
+}
+
+// Audio Playback Management
+const audio = document.getElementById('ts-song');
+const audioToggleBtn = document.getElementById('audioToggleBtn');
+
+function updateAudioButton() {
+  if (audio.paused) {
+    audioToggleBtn.innerHTML = "🎵 Play Music";
+  } else {
+    audioToggleBtn.innerHTML = "⏸️ Pause Music";
+  }
+}
+
+audioToggleBtn.addEventListener('click', function() {
+  if (audio.paused) {
+    audio.play().then(updateAudioButton).catch(err => console.log("Playback interaction blocked."));
+  } else {
+    audio.pause();
+    updateAudioButton();
+  }
+});
+
+// Calculate scroll target accounting for sticky navbar size
+function scrollToSection(targetElement) {
+  if (!targetElement) return;
+  const navHeight = document.getElementById('navbar').offsetHeight || 75;
+  const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navHeight;
+  
+  window.scrollTo({
+    top: targetPosition,
+    behavior: 'smooth'
+  });
+}
+
+// Explore Button trigger setup
+document.getElementById('exploreBtn').addEventListener('click', function() {
+  audio.play().then(updateAudioButton).catch(err => console.log("Audio kickstart fallback."));
+  scrollToSection(document.getElementById('about'));
+});
+
+
+// --- AUTO-SCROLL LOOPS (Every 5 seconds) ---
+const sections = Array.from(document.querySelectorAll('section'));
+let currentSectionIndex = 0;
+let autoScrollTimer;
+let interactionTimeout;
+
+function startAutoScroll() {
+  clearInterval(autoScrollTimer);
+  autoScrollTimer = setInterval(() => {
+    currentSectionIndex = (currentSectionIndex + 1) % sections.length;
+    scrollToSection(sections[currentSectionIndex]);
+  }, 5000); 
+}
+
+function pauseAutoScrollForUser() {
+  clearInterval(autoScrollTimer);
+  clearTimeout(interactionTimeout);
+  
+  interactionTimeout = setTimeout(() => {
+    const navHeight = document.getElementById('navbar').offsetHeight || 75;
+    let closestIndex = 0;
+    let minDistance = Math.abs(sections[0].getBoundingClientRect().top - navHeight);
+    
+    sections.forEach((sec, idx) => {
+      let dist = Math.abs(sec.getBoundingClientRect().top - navHeight);
+      if(dist < minDistance) {
+        minDistance = dist;
+        closestIndex = idx;
+      }
+    });
+    
+    currentSectionIndex = closestIndex;
+    startAutoScroll();
+  }, 10000); 
+}
+
+window.addEventListener('wheel', pauseAutoScrollForUser, { passive: true });
+window.addEventListener('touchmove', pauseAutoScrollForUser, { passive: true });
+
+document.querySelectorAll('nav a').forEach(elem => {
+  elem.addEventListener('click', (e) => {
+    e.preventDefault();
+    const targetId = elem.getAttribute('href').substring(1);
+    const targetSec = document.getElementById(targetId);
+    const targetIdx = sections.findIndex(sec => sec.id === targetId);
+    
+    if(targetIdx !== -1) currentSectionIndex = targetIdx;
+    scrollToSection(targetSec);
+    pauseAutoScrollForUser();
+  });
+});
+
+startAutoScroll();
+</script>
+</body>
+</html>
+
+```
